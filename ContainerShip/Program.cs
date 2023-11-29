@@ -13,12 +13,12 @@ namespace ContainerShip
         static void Main(string[] args)
         {
             ContainerCollection containers = new ContainerCollection();
-            Ship ship = new Ship(1000, 10, 10, 10);
+            Ship ship = new Ship(1000, 6, 6, 6);
 
 
-            ship.AddContainer(containers.GetContainers());
+            ship.AddContainers(containers.GetContainers());
 
-            Console.WriteLine(ship.ShipLayout);
+            Console.WriteLine(ship);
             Console.ReadLine();
 
         }

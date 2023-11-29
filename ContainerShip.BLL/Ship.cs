@@ -17,15 +17,63 @@ namespace ContainerShip.BLL
         public int MaxWeightOnContainer = 120000;
         public Container[,,] ShipLayout { get; set; }
 
+        private int Length { get; set; }
+        private int Width { get; set; }
+        private int Height { get; set; }
+
         public Ship(int maximumWeight, int length, int width, int height)
         {
-            ShipLayout = new Container[length, width, height];
             this.MaximumWeight = maximumWeight;
+            this.LoadedWeight = 0;
+            this.Length = length;
+            this.Width = width;
+            this.Height = height;
+            ShipLayout = new Container[length, width, height];
         }
 
-        public void AddContainer(List<Container> containers)
+        public void AddContainers(List<Container> containers)
         {
-            int containerIndex = 0;
+            foreach (var container in containers)
+            {
+                if (container.Type == ContainerType.Cooled)
+                {
+                    PlaceContainer(container, 0);
+                }
+                else
+                {
+                    PlaceContainer(container, 1);
+                }
+            }
+        }
+
+
+        private void PlaceContainer(Container container, int rowindex)
+        {
+            for (int row = rowindex; row < Length; row++)
+            {
+                for (int col = 0; col < Width; col++)
+                {
+                    for (int level = 0; level < Height; level++)
+                    {
+                        if (ShipLayout[row, col, level] == null)
+                        {
+                            ShipLayout[row, col, level] = container;
+                            LoadedWeight += container.Weight;
+                            Console.WriteLine($"Placed container {container} at position [{row}, {col}, {level}]");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("No available space to place the container.");
+        }
+
+
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
 
             for (int x = 0; x < ShipLayout.GetLength(0); x++)
             {
@@ -33,35 +81,15 @@ namespace ContainerShip.BLL
                 {
                     for (int z = 0; z < ShipLayout.GetLength(2); z++)
                     {
-                        if (containerIndex < containers.Count)
+                        if (ShipLayout[x, y, z] != null)
                         {
-                            ShipLayout[x, y, z] = containers[containerIndex];
-                            containerIndex++;
-                        }
-                        else
-                        {
-                            // If ShipLayout dimensions are smaller than containers count, exit the loop.
-                            break;
+                            sb.Append($"[{x}, {y}, {z}]: {ShipLayout[x, y, z]}\n");
                         }
                     }
-
-                    if (containerIndex >= containers.Count)
-                    {
-                        // If ShipLayout dimensions are smaller than containers count, exit the loop.
-                        break;
-                    }
-                }
-
-                if (containerIndex >= containers.Count)
-                {
-                    // If ShipLayout dimensions are smaller than containers count, exit the loop.
-                    break;
                 }
             }
+
+            return sb.ToString();
         }
-
-
-
-
     }
 }
