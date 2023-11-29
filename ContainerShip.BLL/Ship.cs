@@ -16,7 +16,6 @@ namespace ContainerShip.BLL
 
         public int MaxWeightOnContainer = 120000;
         public Container[,,] ShipLayout { get; set; }
-
         private int Length { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }
@@ -35,23 +34,40 @@ namespace ContainerShip.BLL
         {
             foreach (var container in containers)
             {
-                if (container.Type == ContainerType.Cooled)
+                LoadedWeight += container.Weight; 
+            }
+
+            if (LoadedWeight < MaximumWeight)
+            {
+                foreach (var container in containers)
                 {
-                    PlaceContainer(container, 0);
+                    if (container.Type == ContainerType.Cooled)
+                    {
+                        PlaceContainer(container, 0, 0);
+                    }
+                    else if (container.Type == ContainerType.Valuable)
+                    {
+                        PlaceContainer(container, Length - 1, 0);
+                    }
+                    else
+                    {
+                        PlaceContainer(container, 1, 0);
+                    }
                 }
-                else
-                {
-                    PlaceContainer(container, 1);
-                }
+            }
+            
+            else
+            {
+                throw new Exception($"Maximum weight on ship: {MaximumWeight} Kg");
             }
         }
 
 
-        private void PlaceContainer(Container container, int rowindex)
+        private void PlaceContainer(Container container, int rowindex, int columnindex)
         {
             for (int row = rowindex; row < Length; row++)
             {
-                for (int col = 0; col < Width; col++)
+                for (int col = columnindex; col < Width; col++)
                 {
                     for (int level = 0; level < Height; level++)
                     {

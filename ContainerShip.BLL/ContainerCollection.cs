@@ -16,6 +16,11 @@ namespace ContainerShip.BLL
 
             containers.Add(new BLL.Container(400, ContainerType.Empty));
             containers.Add(new BLL.Container(1000, ContainerType.Full));
+            containers.Add(new BLL.Container(1000, ContainerType.Full));
+            containers.Add(new BLL.Container(1000, ContainerType.Full));
+            containers.Add(new BLL.Container(1000, ContainerType.Full));
+            containers.Add(new BLL.Container(1000, ContainerType.Full));
+            containers.Add(new BLL.Container(1000, ContainerType.Full));
             containers.Add(new BLL.Container(1275, ContainerType.Full));
             containers.Add(new BLL.Container(800, ContainerType.Cooled));
             containers.Add(new BLL.Container(810, ContainerType.Cooled));
@@ -26,6 +31,21 @@ namespace ContainerShip.BLL
             containers.Add(new BLL.Container(810, ContainerType.Cooled));
             containers.Add(new BLL.Container(810, ContainerType.Cooled));
             containers.Add(new BLL.Container(810, ContainerType.Cooled));
+            containers.Add(new BLL.Container(1500, ContainerType.Valuable));
+            containers.Add(new BLL.Container(1500, ContainerType.Valuable));
+            containers.Add(new BLL.Container(1500, ContainerType.Valuable));
+            containers.Add(new BLL.Container(1500, ContainerType.Valuable));
+            containers.Add(new BLL.Container(1500, ContainerType.Valuable));
+            containers.Add(new BLL.Container(810, ContainerType.Cooled));
+            containers.Add(new BLL.Container(810, ContainerType.Cooled));
+            containers.Add(new BLL.Container(810, ContainerType.Cooled));
+            containers.Add(new BLL.Container(30000, ContainerType.Full));
+            containers.Add(new BLL.Container(30000, ContainerType.Full));
+            containers.Add(new BLL.Container(20000, ContainerType.Full));
+            containers.Add(new BLL.Container(20000, ContainerType.Full));
+            containers.Add(new BLL.Container(30000, ContainerType.Full));
+
+
 
 
             return containers;
