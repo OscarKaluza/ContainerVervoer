@@ -12,28 +12,22 @@ namespace ContainerShip
     {
         static void Main(string[] args)
         {
-            Ship ship = new Ship(1000, 2, 2);
+            Ship ship = new Ship(1000, 10, 10, 10);
 
-            BLL.Container container1 = new BLL.Container(100, ContainerType.Valuable);
-            BLL.Container container2 = new BLL.Container(200, ContainerType.Cooled);
-            BLL.Container container3 = new BLL.Container(400, ContainerType.Valuable);
-            BLL.Container container4 = new BLL.Container(100, ContainerType.Valuable);
+            List<BLL.Container> containers = new List<BLL.Container>();
 
-            ship.ShipLayout[0,0] = container1;
-            ship.ShipLayout[0,1] = container2;
-            ship.ShipLayout[1,0] = container3;
-            ship.ShipLayout[1,1] = container4;
+            containers.Add(new BLL.Container(400, ContainerType.Empty));
+            containers.Add(new BLL.Container(400, ContainerType.Empty));
+            containers.Add(new BLL.Container(1000, ContainerType.Full));
+            containers.Add(new BLL.Container(1275, ContainerType.Full));
+            containers.Add(new BLL.Container(800, ContainerType.Cooled));
+            containers.Add(new BLL.Container(810, ContainerType.Cooled));
+            containers.Add(new BLL.Container(1500, ContainerType.Valuable));
+            containers.Add(new BLL.Container(1477, ContainerType.Valuable));
 
+            ship.AddContainer(containers);
 
-            for (int i =0; i < ship.ShipLayout.GetLength(0); i++)
-            {
-                for (int j = 0; j < ship.ShipLayout.GetLength(1); j++)
-                {
-                    Console.WriteLine(ship.ShipLayout[i, j]);
-                }
-            }
-
-
+            Console.WriteLine(ship.ShipLayout);
             Console.ReadLine();
 
         }

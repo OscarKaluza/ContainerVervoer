@@ -9,12 +9,12 @@ namespace ContainerShip.BLL
 {
     public class ShipService
     {
-        Container container = new Container(100, ContainerType.Cooled);
 
-        public void Addcontainer(Container container)
+        public void AddContainers(List<Container> containers)
         {
 
 
         }
+
     }
 }

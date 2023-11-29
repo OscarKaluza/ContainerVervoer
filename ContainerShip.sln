@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerShip", "ContainerShip\ContainerShip.csproj", "{A46294B6-0C9C-43E8-9A4E-6DFEE69070A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerShip.BLL", "ContainerShip.BLL\ContainerShip.BLL.csproj", "{15282ED6-E536-47DB-870E-9DCFE1259D68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerShip.Core", "ContainerShip.BLL\ContainerShip.Core.csproj", "{15282ED6-E536-47DB-870E-9DCFE1259D68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

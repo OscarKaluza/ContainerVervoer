@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContainerShip.BLL\ContainerShip.BLL.csproj">
+    <ProjectReference Include="..\ContainerShip.BLL\ContainerShip.Core.csproj">
       <Project>{15282ed6-e536-47db-870e-9dcfe1259d68}</Project>
-      <Name>ContainerShip.BLL</Name>
+      <Name>ContainerShip.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
