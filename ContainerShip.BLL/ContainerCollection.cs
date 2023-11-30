@@ -44,8 +44,7 @@ namespace ContainerShip.BLL
             containers.Add(new BLL.Container(20000, ContainerType.Full));
             containers.Add(new BLL.Container(20000, ContainerType.Full));
             containers.Add(new BLL.Container(30000, ContainerType.Full));
-
-
+    
 
 
             return containers;
