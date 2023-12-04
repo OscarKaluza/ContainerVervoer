@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 
 namespace ContainerShip.BLL
 {
     public class Ship
     {
+        public Container[,,] ShipLayout { get; set; }
         public int MaximumWeight { get; set; }
         public int LoadedWeight { get; set; }
-
-        public int MaxWeightOnContainer = 120000;
-        public Container[,,] ShipLayout { get; set; }
+        public int MaxWeightOnContainer { get; set; }
         private int Length { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }
@@ -28,6 +22,7 @@ namespace ContainerShip.BLL
             this.Length = length;
             this.Width = width;
             this.Height = height;
+            this.MaxWeightOnContainer = 120000;
             ShipLayout = new Container[length, width, height];
         }
 
@@ -64,22 +59,55 @@ namespace ContainerShip.BLL
 
         private void PlaceContainer(Container container, int rowindex, int columnindex, int heightindex)
         {
-            for (int row = rowindex; row < Length; row++)
+            int startingRow = rowindex;
+            int startingColumn = columnindex;
+            int startingHeight = heightindex;
+
+            while (startingRow < Length)
             {
-                for (int col = columnindex; col < Width; col++)
+                for (int row = startingRow; row < Length; row++)
                 {
-                    for (int height = heightindex; height < Height; height++)
+                    for (int col = startingColumn; col < Width; col++)
                     {
-                        if (ShipLayout[row, col, height] == null)
+                        for (int height = startingHeight; height < Height; height++)
                         {
-                            ShipLayout[row, col, height] = container;
-                            LoadedWeight += container.Weight;
-                            Console.WriteLine($"Placed container {container} at position [{row}, {col}, {height}]");
-                            return;
+                            if (ShipLayout[row, col, height] == null)
+                            {
+                                if (CheckMaxWeightOnTop(row, col, height, container.Weight))
+                                {
+                                    ShipLayout[row, col, height] = container;
+                                    Console.WriteLine($"Placed container {container} at position [{row}, {col}, {height}]");
+                                    return;
+                                }
+                            }
                         }
                     }
                 }
+
+                startingRow++;
             }
+
+            Console.WriteLine($"Cannot place container. Maximum weight on top of a container is {MaxWeightOnContainer} Kg");
+        }
+
+        private bool CheckMaxWeightOnTop(int row, int col, int height, int containerWeight)
+        {
+            int totalWeightOnTop = containerWeight;
+
+            for (int h = height - 1; h >= 0; h--)
+            {
+                if (ShipLayout[row, col, h] != null)
+                {
+                    totalWeightOnTop += ShipLayout[row, col, h].Weight;
+
+                    if (totalWeightOnTop > MaxWeightOnContainer)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void PlaceCooledContainers(List<Container> cooledContainers)
@@ -109,7 +137,6 @@ namespace ContainerShip.BLL
                 {
                     throw new Exception("Cant place more valueable containers on row for easy acces: Row is full");
                 }
-
             }
         }
 

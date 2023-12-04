@@ -8,9 +8,8 @@ namespace ContainerShip.BLL
 {
     public class Container
     {
-        public int Weight { get; set; }
         public ContainerType Type { get; set; }
-
+        public int Weight { get; set; }
         public int maxWeight = 30000;
 
         public Container(int weight, ContainerType type)
@@ -22,7 +21,12 @@ namespace ContainerShip.BLL
             }
             else
             {
-                throw new Exception("Weight cannot exceed 30000kg");
+                throw new Exception($"Weight cannot exceed {maxWeight}");
+            }
+
+            if (Type == ContainerType.Empty)
+            {
+                Weight = 4000;
             }
 
         }
