@@ -14,7 +14,10 @@ namespace ContainerShip.BLL
         {
             containers = new List<Container>();
 
-            containers.Add(new BLL.Container(400, ContainerType.Empty));
+            containers.Add(new BLL.Container(ContainerType.Empty));
+            containers.Add(new BLL.Container(ContainerType.Empty));
+            containers.Add(new BLL.Container(ContainerType.Empty));
+            containers.Add(new BLL.Container(ContainerType.Empty));
             containers.Add(new BLL.Container(1000, ContainerType.Full));
             containers.Add(new BLL.Container(1000, ContainerType.Full));
             containers.Add(new BLL.Container(1000, ContainerType.Full));
@@ -42,9 +45,7 @@ namespace ContainerShip.BLL
             containers.Add(new BLL.Container(20000, ContainerType.Cooled));
             containers.Add(new BLL.Container(20000, ContainerType.Cooled));
             containers.Add(new BLL.Container(10000, ContainerType.Cooled));
-            containers.Add(new BLL.Container(10000, ContainerType.Empty));
             containers.Add(new BLL.Container(810, ContainerType.Cooled));
-            containers.Add(new BLL.Container(1000, ContainerType.Empty));
             containers.Add(new BLL.Container(30000, ContainerType.Full));
             containers.Add(new BLL.Container(30000, ContainerType.Full));
             containers.Add(new BLL.Container(30000, ContainerType.Full));
