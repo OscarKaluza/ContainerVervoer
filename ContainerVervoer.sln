@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerShip", "ContainerShip\ContainerShip.csproj", "{A46294B6-0C9C-43E8-9A4E-6DFEE69070A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVervoer", "ContainerShip\ContainerVervoer.csproj", "{A46294B6-0C9C-43E8-9A4E-6DFEE69070A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerShip.Core", "ContainerShip.BLL\ContainerShip.Core.csproj", "{15282ED6-E536-47DB-870E-9DCFE1259D68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVervoer.Core", "ContainerShip.BLL\ContainerVervoer.Core.csproj", "{15282ED6-E536-47DB-870E-9DCFE1259D68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test Layer", "Test Layer\Test Layer.csproj", "{7A5A09F1-FB71-401C-B5CF-201222F84C2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test Layer", "Test Layer\Test Layer.csproj", "{7A5A09F1-FB71-401C-B5CF-201222F84C2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

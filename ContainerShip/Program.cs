@@ -9,36 +9,9 @@ namespace ContainerVervoer
         static void Main(string[] args)
         {
             Ship ship = new Ship();
-            List<Container> containers = new List<Container>
-            {
-                new Container(4000, ContainerType.Empty),
-                new Container(5000, ContainerType.Valuable),
-                new Container(7000, ContainerType.Full),
-                new Container(7000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(10000, ContainerType.Cooled),
-                new Container(7000, ContainerType.Full),
-                new Container(7000, ContainerType.Full),
-                new Container(7000, ContainerType.Full),
-                new Container(7000, ContainerType.Full),
-                new Container(7000, ContainerType.Full),
+            ContainerCollection containers = new ContainerCollection();
 
-            };
-
-
-            ship.DistributeContainers(containers);
+            ship.DistributeContainers(containers.GetContainers());
             ship.DisplayShipInfo();
 
             //foreach (var row in ship.Rows)

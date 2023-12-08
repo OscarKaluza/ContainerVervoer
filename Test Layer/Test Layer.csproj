@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContainerShip.BLL\ContainerShip.Core.csproj" />
+    <ProjectReference Include="..\ContainerShip.BLL\ContainerVervoer.Core.csproj" />
   </ItemGroup>
 
 </Project>
