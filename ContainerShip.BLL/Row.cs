@@ -27,7 +27,6 @@ namespace ContainerVervoer.Core
 
         public void AddContainer(Container container)
         {
-
             foreach (var stack in ShipRow)
             {
                 if (stack.Stack.Count < RowLength)
@@ -35,26 +34,15 @@ namespace ContainerVervoer.Core
                     stack.Stack.Add(container);
                     return;
                 }
-
             }
 
             ShipRow.Add(new ContainerStack { Stack = new List<Container> { container } });
         }
 
-        public bool CheckForCooledContainers(Container container)
+        public bool IsFull()
         {
-            foreach (var stack in ShipRow)
-            {
-                if (container.Type == ContainerType.Cooled)
-                {
-                    return true;
-                }
-
-            }
-
-            return false;
+            return ShipRow.Count >= RowLength;
         }
-
     }
 
 }

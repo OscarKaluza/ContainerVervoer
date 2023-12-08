@@ -19,36 +19,29 @@ namespace ContainerVervoer.Core
         {
             foreach (var container in containers)
             {
-                bool containerAdded = false;
-
-                foreach (var row in Rows)
+                if (container.Type != ContainerType.Cooled)
                 {
-                    if (row.CanAddContainer(container))
-                    {
-                        row.AddContainer(container);
-                        containerAdded = true;
-                        break;
-                    }
+                    int startrow = 2;
+                    Rows.Add(new Row(container, startrow++, 5));
                 }
-
-                if (!containerAdded)
+                else if (container.Type == ContainerType.Cooled)
                 {
-                    Rows.Add(new Row(container, Rows.Count + 1, 4));
+                    Rows.Add(new Row(container, 1, 100));
                 }
             }
+
         }
+
 
         public void DisplayShipInfo()
         {
             foreach (var row in Rows)
             {
-                Console.WriteLine($"Row {row.RowNumber} - Length: {row.RowLength} - Height: ---");
-
                 foreach (var stack in row.ShipRow)
                 {
                     foreach (var container in stack.Stack)
                     {
-                        Console.WriteLine($"  Container Type: {container.Type} ");
+                        Console.WriteLine($"Row {row.RowNumber} | Container Type: {container.Type}");
                     }
                 }
             }
