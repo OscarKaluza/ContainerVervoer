@@ -12,10 +12,10 @@ namespace ContainerVervoer.Core
         public int RowNumber { get; set; }
         public int RowLength { get; set; }
 
-        public Row(Container container, int rowNumber)
+        public Row(Container container, int rowNumber, int length)
         {
             RowNumber = rowNumber;
-            RowLength = 4;
+            RowLength = length;
             ShipRow = new List<ContainerStack> { new ContainerStack { Stack = new List<Container> { container } } };
         }
 

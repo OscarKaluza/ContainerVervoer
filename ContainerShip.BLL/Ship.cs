@@ -33,7 +33,7 @@ namespace ContainerVervoer.Core
 
                 if (!containerAdded)
                 {
-                    Rows.Add(new Row(container, Rows.Count + 1));
+                    Rows.Add(new Row(container, Rows.Count + 1, 4));
                 }
             }
         }
