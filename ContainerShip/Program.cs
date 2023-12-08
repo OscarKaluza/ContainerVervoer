@@ -1,25 +1,57 @@
-﻿using ContainerShip.BLL;
+﻿using ContainerVervoer.Core;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ContainerShip
+namespace ContainerVervoer
 {
-    public class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            ContainerCollection containers = new ContainerCollection();
-            Ship ship = new Ship(3000000, 6, 6, 6);
+            Ship ship = new Ship();
+            List<Container> containers = new List<Container>
+            {
+                new Container(4000, ContainerType.Empty),
+                new Container(5000, ContainerType.Valuable),
+                new Container(7000, ContainerType.Full),
+                new Container(7000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(10000, ContainerType.Cooled),
+                new Container(7000, ContainerType.Full),
+                new Container(7000, ContainerType.Full),
+                new Container(7000, ContainerType.Full),
+                new Container(7000, ContainerType.Full),
+                new Container(7000, ContainerType.Full),
 
-            ship.AddContainers(containers.GetContainers());
+            };
 
-            Console.WriteLine(ship);
+
+            ship.DistributeContainers(containers);
+            ship.DisplayShipInfo();
+
+            //foreach (var row in ship.Rows)
+            //{
+            //    foreach (var containerStack in row.ShipRow)
+            //    {
+            //        foreach (var container in containerStack.Stack)
+            //        {
+            //            Console.WriteLine($"Row: {row.RowNumber}  Weight: {container.Weight} Kg, ContainerType: {container.Type}");
+            //        }
+            //    }
+            //}
             Console.ReadLine();
-
         }
     }
 }
