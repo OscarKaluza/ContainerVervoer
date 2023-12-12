@@ -15,7 +15,7 @@ namespace ContainerVervoer.Core
             Weight = weight;
             Type = type;
         }
-
+        
         public override string ToString()
         {
             return $"Container: Weight {Weight} Type {Type}";

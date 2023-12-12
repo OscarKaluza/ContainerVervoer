@@ -10,39 +10,44 @@ namespace ContainerVervoer.Core
     {
         public List<ContainerStack> ShipRow { get; set; }
         public int RowNumber { get; set; }
-        public int RowLength { get; set; }
+        public int MaxLength { get; set; }
 
         public Row(Container container, int rowNumber, int length)
         {
             RowNumber = rowNumber;
-            RowLength = length;
-            ShipRow = new List<ContainerStack> { new ContainerStack { Stack = new List<Container> { container } } };
+            MaxLength = length;
+            ShipRow = new List<ContainerStack> { new ContainerStack { StackedContainers = new List<Container> { container } } };
         }
 
-        public bool CanAddContainer(Container container)
+        public bool CanAddRow()
         {
-            int currentRowLength = ShipRow.Sum(stack => stack.Stack.Count);
-            return currentRowLength + 1 <= RowLength;
-        }
-
-        public void AddContainer(Container container)
-        {
-            foreach (var stack in ShipRow)
+            if (ShipRow.Count > MaxLength)
             {
-                if (stack.Stack.Count < RowLength)
-                {
-                    stack.Stack.Add(container);
-                    return;
-                }
+                return false;
             }
 
-            ShipRow.Add(new ContainerStack { Stack = new List<Container> { container } });
+            if (ShipRow.Count < MaxLength)
+            {
+                return true;
+            }
+
+            else return false;  
         }
 
-        public bool IsFull()
+        public bool AddRow(Container container)
         {
-            return ShipRow.Count >= RowLength;
+            if (CanAddRow())
+            {
+                ShipRow.Add(new ContainerStack { StackedContainers = new List<Container> { container } });
+                return true;
+            }
+          
+            else
+            {
+                throw new Exception("Cannot add new Row");
+            }
         }
+
     }
 
 }

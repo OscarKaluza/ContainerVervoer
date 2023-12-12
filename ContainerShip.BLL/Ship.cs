@@ -9,11 +9,12 @@ namespace ContainerVervoer.Core
 {
     public class Ship
     {
-        public List<Row> Rows { get; set; }
+        public List<Row> Layout { get; set; }
         public Ship()
         {
-            Rows = new List<Row>();
+            Layout = new List<Row>();
         }
+
 
         public void DistributeContainers(List<Container> containers)
         {
@@ -22,30 +23,41 @@ namespace ContainerVervoer.Core
                 if (container.Type != ContainerType.Cooled)
                 {
                     int startrow = 2;
-                    Rows.Add(new Row(container, startrow++, 5));
+                    Row row = new Row(container, startrow, 5);
+
+                    if (row.AddRow(container))
+                    {
+                        Layout.Add(row);
+                    }
+                    else
+                    {
+                        startrow = 3;
+                        Layout.Add(new Row(container, startrow, 5));
+                    }
                 }
                 else if (container.Type == ContainerType.Cooled)
                 {
-                    Rows.Add(new Row(container, 1, 100));
+                    Layout.Add(new Row(container, 1, 5));
                 }
             }
-
         }
-
 
         public void DisplayShipInfo()
         {
-            foreach (var row in Rows)
+            var sortedRows = Layout.OrderBy(row => row.RowNumber);
+
+            foreach (var row in sortedRows)
             {
                 foreach (var stack in row.ShipRow)
                 {
-                    foreach (var container in stack.Stack)
+                    foreach (var container in stack.StackedContainers)
                     {
-                        Console.WriteLine($"Row {row.RowNumber} | Container Type: {container.Type}");
+                        Console.WriteLine($"Row {row.RowNumber} | Container Type: {container.Type} amount on top {stack.StackedContainers.Count -1}");
                     }
                 }
             }
         }
+
 
     }
 }
