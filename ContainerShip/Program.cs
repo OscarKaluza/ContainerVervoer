@@ -8,22 +8,13 @@ namespace ContainerVervoer
     {
         static void Main(string[] args)
         {
-            Ship ship = new Ship();
-            ContainerCollection containers = new ContainerCollection();
+            ContainerCollection containerCollection = new ContainerCollection();
+            Ship ship = new Ship(1, 100, 5);    
+            Row row = new Row();
+            List<Row> newRows = row.AddStack(containerCollection.GetContainers());
 
-            ship.DistributeContainers(containers.GetContainers());
+            ship.AddRows(newRows);
             ship.DisplayShipInfo();
-
-            //foreach (var row in ship.Rows)
-            //{
-            //    foreach (var containerStack in row.ShipRow)
-            //    {
-            //        foreach (var container in containerStack.Stack)
-            //        {
-            //            Console.WriteLine($"Row: {row.RowNumber}  Weight: {container.Weight} Kg, ContainerType: {container.Type}");
-            //        }
-            //    }
-            //}
             Console.ReadLine();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,44 +10,39 @@ namespace ContainerVervoer.Core
     public class Row
     {
         public List<ContainerStack> ShipRow { get; set; }
-        public int RowNumber { get; set; }
-        public int MaxLength { get; set; }
-
-        public Row(Container container, int rowNumber, int length)
+        public int RowNumber { get ; set; }  
+        public Row(int rownumber)
         {
-            RowNumber = rowNumber;
-            MaxLength = length;
-            ShipRow = new List<ContainerStack> { new ContainerStack { StackedContainers = new List<Container> { container } } };
+            RowNumber = rownumber;
         }
 
-        public bool CanAddRow()
+        public Row() { }
+
+        public List<Row> AddStack(List<Container> containers)
         {
-            if (ShipRow.Count > MaxLength)
+            List<Row> rows = new List<Row>();
+
+            foreach (var container in containers)
             {
-                return false;
+                Row row = new Row
+                {
+                    ShipRow = new List<ContainerStack>
+            {
+                new ContainerStack
+                {
+                    StackedContainers = new List<Container> { container }
+                }
+            }
+                };
+
+                rows.Add(row);
             }
 
-            if (ShipRow.Count < MaxLength)
-            {
-                return true;
-            }
-
-            else return false;  
+            return rows;
         }
 
-        public bool AddRow(Container container)
-        {
-            if (CanAddRow())
-            {
-                ShipRow.Add(new ContainerStack { StackedContainers = new List<Container> { container } });
-                return true;
-            }
-          
-            else
-            {
-                throw new Exception("Cannot add new Row");
-            }
-        }
+
+
 
     }
 
