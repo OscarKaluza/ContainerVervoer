@@ -10,7 +10,7 @@ namespace ContainerVervoer.Core
     public class ContainerStack
     {
         public List<Container> StackedContainers { get; set; }
-        public int MaxHeigth = 5;
+        public const int MAXHEIGHT = 5;
 
         public ContainerStack()
         {
@@ -19,14 +19,7 @@ namespace ContainerVervoer.Core
 
         public bool CanAddContainer()
         {
-            if (StackedContainers.Count < MaxHeigth)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return StackedContainers.Count < MAXHEIGHT;
         }
 
         public List<ContainerStack> AddContainer(List<Container> containers)

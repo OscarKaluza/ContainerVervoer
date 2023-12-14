@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ContainerVervoer.Core
 {
     public class Row
     {
         public List<ContainerStack> ShipRow { get; set; }
-        public int RowNumber { get ; set; }  
-        public Row(int rownumber)
-        {
-            RowNumber = rownumber;
-        }
-
-        public Row() { }
+        public int RowNumber { get; set; }
 
         public List<Row> AddStack(List<Container> containers)
         {
@@ -27,12 +16,12 @@ namespace ContainerVervoer.Core
                 Row row = new Row
                 {
                     ShipRow = new List<ContainerStack>
-            {
-                new ContainerStack
-                {
-                    StackedContainers = new List<Container> { container }
-                }
-            }
+                    {
+                        new ContainerStack
+                        {
+                            StackedContainers = new List<Container> { container }
+                        }
+                    }
                 };
 
                 rows.Add(row);
@@ -40,9 +29,6 @@ namespace ContainerVervoer.Core
 
             return rows;
         }
-
-
-
 
     }
 

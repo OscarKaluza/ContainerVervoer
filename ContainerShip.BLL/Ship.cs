@@ -26,14 +26,7 @@ namespace ContainerVervoer.Core
 
         public bool CanAddRow(int row)
         {
-            if (Layout.Count + row <= MaxRowLength)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Layout.Count + row <= MaxRowLength;
         }
 
         public void AddRows(List<Row> rows)
