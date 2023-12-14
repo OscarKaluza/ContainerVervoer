@@ -1,67 +1,90 @@
-﻿using System;
+﻿using ContainerVervoer.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ContainerVervoer.Core
+namespace Containertest
 {
     public class Ship
     {
-        public List<Row> Layout { get; set; }
-        public int RowNumber {  get; set; }
         public int MaxRowLength { get; set; }
-        public int MaxRowWidth { get; set; }
+        public int MaxContainers { get; set; }
 
-        
-        public Ship(int row, int rowlength, int rowwidth)
+        private List<Row> Rows = new List<Row>();
+
+        public Ship()
         {
-            this.RowNumber = row;
-            this.MaxRowLength = rowlength;
-            this.MaxRowWidth = rowwidth;
-            Layout = new List<Row>();
+            Rows = new List<Row>();
+            MaxContainers = 5;
         }
 
-        public bool CanAddRow(int row)
+        public void DistributeContainers(List<Container> containers)
         {
-            return Layout.Count + row <= MaxRowLength;
-        }
+            int startRow = 2;
+            int currentcontainers = 0;
 
-        public void AddRows(List<Row> rows)
-        {
-            if (Layout == null)
+            foreach (var container in containers)
             {
-                Layout = new List<Row>();
-            }
-
-            if (CanAddRow(rows.Count))
-            {
-                Layout.AddRange(rows);
-            }
-            else
-            {
-                throw new Exception("Can't add more rows to the ship");
-            }
-        }
-
-        public void DisplayShipInfo()
-        {
-           var sortedRows = Layout.OrderBy(row => RowNumber);
-
-            foreach (var row in sortedRows)
-            {
-                foreach (var stack in row.ShipRow)
+                if (container.Type == ContainerType.Cooled)
                 {
-                    foreach (var container in stack.StackedContainers)
+                    Row row = new Row(1);
+                    MaxContainers = 5;
+
+                    if (currentcontainers < MaxContainers)
                     {
-                        Console.WriteLine($"Row: {RowNumber} | Container Type: {container.Type}");
+                        row.AddContainer(container);
+                        Rows.Add(row);
+                        currentcontainers++;
                     }
+                    else
+                    {
+                        throw new Exception("Cannot add more cooled containers to the ship:");
+                    }
+
+                }
+
+                else if (container.Type == ContainerType.Valuable)
+                {
+                    if (currentcontainers < MaxContainers)
+                    {
+                        Row row = new Row(3);
+                        row.AddContainer(container);
+                        Rows.Add(row);
+                    }
+                    else
+                    {
+                        throw new Exception("Cannot add more valueable containers to the ship:");
+
+                    }
+
+                }
+
+                else
+                {
+                    Row row = new Row(startRow);
+                    row.Containers.Add(container);
+                    Rows.Add(row);
+                }
+            }
+
+            DisplayShipInfo(Rows);
+        }
+
+
+        public void DisplayShipInfo(List<Row> rows)
+        {
+            var sortedRows = rows.OrderBy(row => row.RowNumber).ToList();
+
+            foreach (Row row in sortedRows)
+            {
+                for (int i = 0; i < row.Containers.Count; i++)
+                {
+                    Console.WriteLine($"Row: {row.RowNumber} | Type: {row.Containers[i].Type}");
                 }
             }
         }
-
 
     }
 }

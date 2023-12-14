@@ -1,35 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using ContainerVervoer.Core;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ContainerVervoer.Core
+namespace Containertest
 {
     public class Row
     {
-        public List<ContainerStack> ShipRow { get; set; }
         public int RowNumber { get; set; }
+        public List<Container> Containers { get; set; }
 
-        public List<Row> AddStack(List<Container> containers)
+        public Row(int rownumber)
         {
-            List<Row> rows = new List<Row>();
-
-            foreach (var container in containers)
-            {
-                Row row = new Row
-                {
-                    ShipRow = new List<ContainerStack>
-                    {
-                        new ContainerStack
-                        {
-                            StackedContainers = new List<Container> { container }
-                        }
-                    }
-                };
-
-                rows.Add(row);
-            }
-
-            return rows;
+            this.RowNumber = rownumber;
+            this.Containers = new List<Container>();
         }
 
-    }
 
+        public void AddContainer(Container container)
+        {
+            Containers.Add(container);
+        }
+    }
 }

@@ -1,20 +1,20 @@
 ﻿using ContainerVervoer.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ContainerVervoer
+namespace Containertest
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            ContainerCollection containerCollection = new ContainerCollection();
-            Ship ship = new Ship(1, 100, 5);    
-            Row row = new Row();
-            List<Row> newRows = row.AddStack(containerCollection.GetContainers());
+            Ship ship = new Ship();
+            ContainerCollection collection = new ContainerCollection();
 
-            ship.AddRows(newRows);
-            ship.DisplayShipInfo();
+            ship.DistributeContainers(collection.GetContainers());
             Console.ReadLine();
         }
     }
