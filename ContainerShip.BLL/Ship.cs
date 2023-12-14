@@ -9,10 +9,12 @@ namespace Containertest
 {
     public class Ship
     {
+        private List<Row> Rows = new List<Row>();
         public int MaxRowLength { get; set; }
         public int MaxContainers { get; set; }
 
-        private List<Row> Rows = new List<Row>();
+        private int CooledContainerAmount = 0;
+        private int ValueAbleContainerAmount = 0;
 
         public Ship()
         {
@@ -23,54 +25,67 @@ namespace Containertest
         public void DistributeContainers(List<Container> containers)
         {
             int startRow = 2;
-            int currentcontainers = 0;
 
             foreach (var container in containers)
             {
                 if (container.Type == ContainerType.Cooled)
                 {
-                    Row row = new Row(1);
-                    MaxContainers = 5;
-
-                    if (currentcontainers < MaxContainers)
-                    {
-                        row.AddContainer(container);
-                        Rows.Add(row);
-                        currentcontainers++;
-                    }
-                    else
-                    {
-                        throw new Exception("Cannot add more cooled containers to the ship:");
-                    }
-
+                    DistributeCooledContainer(container);
                 }
-
                 else if (container.Type == ContainerType.Valuable)
                 {
-                    if (currentcontainers < MaxContainers)
-                    {
-                        Row row = new Row(3);
-                        row.AddContainer(container);
-                        Rows.Add(row);
-                    }
-                    else
-                    {
-                        throw new Exception("Cannot add more valueable containers to the ship:");
-
-                    }
-
+                    DistributeValuableContainer(container);
                 }
-
                 else
                 {
-                    Row row = new Row(startRow);
-                    row.Containers.Add(container);
-                    Rows.Add(row);
+                    DistributeRegularContainer(container, startRow);
                 }
             }
 
             DisplayShipInfo(Rows);
         }
+
+        private void DistributeCooledContainer(Container container)
+        {
+            Row row = new Row(1);
+            MaxContainers = 5;
+
+            if (CooledContainerAmount < MaxContainers)
+            {
+                row.AddContainer(container);
+                Rows.Add(row);
+                CooledContainerAmount++;
+            }
+            else
+            {
+                throw new Exception("Cannot add more cooled containers to the ship:");
+            }
+        }
+
+        private void DistributeValuableContainer(Container container)
+        {
+            Row row = new Row(3);
+            MaxContainers = 10;
+
+            if (ValueAbleContainerAmount < MaxContainers)
+            {
+                row.AddContainer(container);
+                Rows.Add(row);
+                ValueAbleContainerAmount++;
+            }
+            else
+            {
+                throw new Exception("Cannot add more valuable containers to the ship:");
+            }
+        }
+
+        private void DistributeRegularContainer(Container container, int startRow)
+        {
+            Row row = new Row(startRow);
+            row.Containers.Add(container);
+            Rows.Add(row);
+        }
+
 
 
         public void DisplayShipInfo(List<Row> rows)
