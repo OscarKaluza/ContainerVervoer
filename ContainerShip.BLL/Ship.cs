@@ -12,21 +12,24 @@ namespace ContainerVervoer.Core
         private int MaxRowLength { get; set; }
         private int MaxContainers { get; set; }
         private int LastRow {  get; set; }
-
-        private int CooledContainerAmount = 0;
-        private int ValueAbleContainerAmount = 0;
+        private int CooledContainerAmount {get ; set; }
+        private int ValueAbleContainerAmount { get ; set; } 
+        private int ContainerAmount { get; set; }
+        private int StartRow {get ; set; }
 
         public Ship(int lastrow)
         {
             Rows = new List<Row>();
             LastRow = lastrow;
             MaxContainers = 5;
+            StartRow = 2;
+            ValueAbleContainerAmount = 0;
+            ContainerAmount = 0;
+            ValueAbleContainerAmount = 0;
         }
 
         public void DistributeContainers(List<Container> containers)
         {
-            int startRow = 2;
-
             foreach (var container in containers)
             {
                 if (container.Type == ContainerType.Cooled)
@@ -37,14 +40,12 @@ namespace ContainerVervoer.Core
                 {
                     AddValueableContainers(container);
                 }
-                else
+                else if (container.Type == ContainerType.Empty || container.Type == ContainerType.Full)
                 {
-                    AddContainers(container, startRow);
+                    AddContainers(container);
                 }
             }
 
-            ContainerStack containerStack = new ContainerStack();
-            containerStack.AddContainer(Rows);
             DisplayShipInfo(Rows);
         }
 
@@ -82,12 +83,28 @@ namespace ContainerVervoer.Core
             }
         }
 
-        private void AddContainers(Container container, int startRow)
+        private void AddContainers(Container container)
         {
-            Row row = new Row(startRow);
-            row.Containers.Add(container);
-            Rows.Add(row);
+            MaxContainers = 10;
+
+            if (ContainerAmount < MaxContainers)
+            {
+                Row row = new Row(StartRow);
+                row.AddContainer(container);
+                Rows.Add(row);
+                ContainerAmount++;
+            }
+            else
+            {
+                StartRow++;
+                ContainerAmount = 1;
+
+                Row newRow = new Row(StartRow);
+                newRow.AddContainer(container);
+                Rows.Add(newRow);
+            }
         }
+
 
         public void DisplayShipInfo(List<Row> rows)
         {
