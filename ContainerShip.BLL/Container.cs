@@ -8,8 +8,8 @@ namespace ContainerVervoer.Core
 {
     public class Container
     {
-        public int Weight { get; set; }
-        public ContainerType Type { get; set; }
+        private int Weight { get; set; }
+        public ContainerType Type { get; private set; }
         public Container(int weight, ContainerType type)
         {
             Weight = weight;

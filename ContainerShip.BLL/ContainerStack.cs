@@ -9,9 +9,9 @@ namespace ContainerVervoer.Core
 {
     public class ContainerStack
     {
-        public List<Row> StackedRows { get; set; }
+        private List<Row> StackedRows { get; set; }
 
-        public const int MAXHEIGHT = 5;
+        private const int MAXHEIGHT = 5;
 
         public ContainerStack()
         {

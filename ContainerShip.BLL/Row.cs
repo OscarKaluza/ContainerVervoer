@@ -9,8 +9,8 @@ namespace ContainerVervoer.Core
 {
     public class Row
     {
-        public int RowNumber { get; set; }
-        public List<Container> Containers { get; set; }
+        public int RowNumber { get; private set; }
+        public List<Container> Containers { get; private set; }
 
         public Row(int rownumber)
         {

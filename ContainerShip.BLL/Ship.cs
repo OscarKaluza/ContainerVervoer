@@ -9,15 +9,17 @@ namespace ContainerVervoer.Core
     public class Ship
     {
         private List<Row> Rows = new List<Row>();
-        public int MaxRowLength { get; set; }
-        public int MaxContainers { get; set; }
+        private int MaxRowLength { get; set; }
+        private int MaxContainers { get; set; }
+        private int LastRow {  get; set; }
 
         private int CooledContainerAmount = 0;
         private int ValueAbleContainerAmount = 0;
 
-        public Ship()
+        public Ship(int lastrow)
         {
             Rows = new List<Row>();
+            LastRow = lastrow;
             MaxContainers = 5;
         }
 
@@ -41,6 +43,8 @@ namespace ContainerVervoer.Core
                 }
             }
 
+            ContainerStack containerStack = new ContainerStack();
+            containerStack.AddContainer(Rows);
             DisplayShipInfo(Rows);
         }
 
@@ -63,7 +67,7 @@ namespace ContainerVervoer.Core
 
         private void AddValueableContainers(Container container)
         {
-            Row row = new Row(3);
+            Row row = new Row(LastRow);
             MaxContainers = 10;
 
             if (ValueAbleContainerAmount < MaxContainers)
@@ -84,8 +88,6 @@ namespace ContainerVervoer.Core
             row.Containers.Add(container);
             Rows.Add(row);
         }
-
-
 
         public void DisplayShipInfo(List<Row> rows)
         {
