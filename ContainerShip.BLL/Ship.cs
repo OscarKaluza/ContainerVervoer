@@ -1,11 +1,10 @@
-﻿using ContainerVervoer.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Containertest
+namespace ContainerVervoer.Core
 {
     public class Ship
     {
@@ -30,22 +29,22 @@ namespace Containertest
             {
                 if (container.Type == ContainerType.Cooled)
                 {
-                    DistributeCooledContainer(container);
+                    AddCooledContainers(container);
                 }
                 else if (container.Type == ContainerType.Valuable)
                 {
-                    DistributeValuableContainer(container);
+                    AddValueableContainers(container);
                 }
                 else
                 {
-                    DistributeRegularContainer(container, startRow);
+                    AddContainers(container, startRow);
                 }
             }
 
             DisplayShipInfo(Rows);
         }
 
-        private void DistributeCooledContainer(Container container)
+        private void AddCooledContainers(Container container)
         {
             Row row = new Row(1);
             MaxContainers = 5;
@@ -62,7 +61,7 @@ namespace Containertest
             }
         }
 
-        private void DistributeValuableContainer(Container container)
+        private void AddValueableContainers(Container container)
         {
             Row row = new Row(3);
             MaxContainers = 10;
@@ -79,7 +78,7 @@ namespace Containertest
             }
         }
 
-        private void DistributeRegularContainer(Container container, int startRow)
+        private void AddContainers(Container container, int startRow)
         {
             Row row = new Row(startRow);
             row.Containers.Add(container);

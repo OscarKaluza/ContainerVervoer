@@ -33,6 +33,7 @@ namespace Containertest
                 new Container(4000, ContainerType.Empty),
                 new Container(4000, ContainerType.Empty),
                 new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Empty),
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),

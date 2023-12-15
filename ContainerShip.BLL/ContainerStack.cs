@@ -9,38 +9,27 @@ namespace ContainerVervoer.Core
 {
     public class ContainerStack
     {
-        public List<Container> StackedContainers { get; set; }
+        public List<Row> StackedRows { get; set; }
+
         public const int MAXHEIGHT = 5;
 
         public ContainerStack()
         {
-            StackedContainers = new List<Container>();
+            StackedRows = new List<Row>();
         }
 
-        public bool CanAddContainer()
+       
+
+        public List<Row> AddContainer(List<Row> rows)
         {
-            return StackedContainers.Count < MAXHEIGHT;
-        }
+            StackedRows = new List<Row>();
 
-        public List<ContainerStack> AddContainer(List<Container> containers)
-        {
-            List<ContainerStack> containerStacks = new List<ContainerStack>();
-
-            if (CanAddContainer())
+            foreach (var row in rows)
             {
-                foreach (var container in containers)
-                {
-                    StackedContainers.Add(container);
-                }
-
-                containerStacks.Add(new ContainerStack { StackedContainers = containers });
-            }
-            else
-            {
-                throw new Exception("Can't stack more containers");
+                StackedRows.Add(row);
             }
 
-            return containerStacks;
+            return StackedRows;
         }
 
 
