@@ -13,7 +13,7 @@ namespace ContainerVervoer
     {
         static void Main(string[] args)
         {
-            Ship ship = new Ship(5, 10, 10);
+            Ship ship = new Ship(10);
             ContainerCollection collection = new ContainerCollection();
 
 

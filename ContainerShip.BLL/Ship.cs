@@ -9,21 +9,16 @@ namespace ContainerVervoer.Core
     public class Ship
     {
         private List<Row> Rows = new List<Row>();
-        private int Length {  get; set; }
-        private int Width { get; set; }
-        private int LastRow { get; set; }
+        private int Length { get; set; }
         private int StartRow { get; set; }
         private int CooledContainerAmount { get; set; }
         private int ValueAbleContainerAmount { get; set; }
         private int ContainerAmount { get; set; }
 
 
-        public Ship(int length, int width, int lastrow)
+        public Ship(int lastrow)
         {
-            Rows = new List<Row>();
-            Length = length;
-            Width = width;
-            LastRow = lastrow;
+            Length = lastrow;
             StartRow = 2;
         }
         public void DistributeRows(List<Container> containers)
@@ -66,10 +61,10 @@ namespace ContainerVervoer.Core
 
         public Row AddValueableContainers(Container container)
         {
-            Row row = new Row(LastRow);
+            Row row = new Row(Length);
             row.MaxContainers = 10;
 
-            if (ValueAbleContainerAmount < LastRow - 1)
+            if (ValueAbleContainerAmount < Length - 1)
             {
                 row.AddContainer(container);
                 ValueAbleContainerAmount++;
@@ -92,12 +87,13 @@ namespace ContainerVervoer.Core
                 ContainerAmount++;
                 return row;
             } 
+
             else
             {
                 StartRow++;
                 ContainerAmount = 1;
 
-                if (StartRow >= LastRow)
+                if (StartRow >= Length)
                 {
                     throw new Exception("Cannot add more rows to the ship");
                 }
