@@ -11,6 +11,7 @@ namespace ContainerVervoer.Core
     {
         public int RowNumber { get; private set; }
         public List<Container> Containers { get; private set; }
+        public int MaxContainers {get; set; }
 
         public Row(int rownumber)
         {
@@ -18,11 +19,11 @@ namespace ContainerVervoer.Core
             this.Containers = new List<Container>();
         }
 
-
         public void AddContainer(Container container)
         {
             Containers.Add(container);
         }
 
+       
     }
 }

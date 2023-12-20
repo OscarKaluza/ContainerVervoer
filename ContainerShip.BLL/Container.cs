@@ -8,12 +8,20 @@ namespace ContainerVervoer.Core
 {
     public class Container
     {
-        private int Weight { get; set; }
+        public int Weight { get; set; }
         public ContainerType Type { get; private set; }
+
+        public int MaxWeight { get; set; }
         public Container(int weight, ContainerType type)
         {
+            MaxWeight = 30000;
             Weight = weight;
             Type = type;
+
+            if (weight > MaxWeight)
+            {
+                throw new Exception($"Weight cannot exceed {MaxWeight}");
+            }
         }
         
         public override string ToString()

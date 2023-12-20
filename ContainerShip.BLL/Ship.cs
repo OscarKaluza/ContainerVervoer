@@ -9,90 +9,88 @@ namespace ContainerVervoer.Core
     public class Ship
     {
         private List<Row> Rows = new List<Row>();
-        private int MaxRowLength { get; set; }
-        private int MaxContainers { get; set; }
-        private int LastRow {  get; set; }
-        private int CooledContainerAmount {get ; set; }
-        private int ValueAbleContainerAmount { get ; set; } 
+        private int Length {  get; set; }
+        private int Width { get; set; }
+        private int LastRow { get; set; }
+        private int StartRow { get; set; }
+        private int CooledContainerAmount { get; set; }
+        private int ValueAbleContainerAmount { get; set; }
         private int ContainerAmount { get; set; }
-        private int StartRow {get ; set; }
 
-        public Ship(int lastrow)
+
+        public Ship(int length, int width, int lastrow)
         {
             Rows = new List<Row>();
+            Length = length;
+            Width = width;
             LastRow = lastrow;
-            MaxContainers = 5;
             StartRow = 2;
-            ValueAbleContainerAmount = 0;
-            ContainerAmount = 0;
-            ValueAbleContainerAmount = 0;
         }
-
-        public void DistributeContainers(List<Container> containers)
+        public void DistributeRows(List<Container> containers)
         {
             foreach (var container in containers)
             {
                 if (container.Type == ContainerType.Cooled)
                 {
-                    AddCooledContainers(container);
+                    Rows.Add(AddCooledContainers(container));
                 }
                 else if (container.Type == ContainerType.Valuable)
                 {
-                    AddValueableContainers(container);
+                    Rows.Add(AddValueableContainers(container));
                 }
                 else if (container.Type == ContainerType.Empty || container.Type == ContainerType.Full)
                 {
-                    AddContainers(container);
+                    Rows.Add(AddContainers(container));
                 }
             }
 
             DisplayShipInfo(Rows);
         }
 
-        private void AddCooledContainers(Container container)
+        public Row AddCooledContainers(Container container)
         {
             Row row = new Row(1);
-            MaxContainers = 5;
+            row.MaxContainers = 5;
 
-            if (CooledContainerAmount < MaxContainers)
+            if (CooledContainerAmount < row.MaxContainers)
             {
                 row.AddContainer(container);
-                Rows.Add(row);
                 CooledContainerAmount++;
             }
             else
             {
                 throw new Exception("Cannot add more cooled containers to the ship:");
             }
+            return row;
         }
 
-        private void AddValueableContainers(Container container)
+        public Row AddValueableContainers(Container container)
         {
             Row row = new Row(LastRow);
-            MaxContainers = 10;
+            row.MaxContainers = 10;
 
-            if (ValueAbleContainerAmount < MaxContainers)
+            if (ValueAbleContainerAmount < LastRow - 1)
             {
                 row.AddContainer(container);
-                Rows.Add(row);
                 ValueAbleContainerAmount++;
             }
             else
             {
                 throw new Exception("Cannot add more valuable containers to the ship:");
             }
+            return row;
         }
 
-        private void AddContainers(Container container)
+        public Row AddContainers(Container container)
         {
-            MaxContainers = 10;
+            Row row = new Row(StartRow);
+            row.MaxContainers = 10;
 
-            if (ContainerAmount < MaxContainers)
+            if (ContainerAmount < row.MaxContainers)
             {
-                Row row = new Row(StartRow);
                 row.AddContainer(container);
-                Rows.Add(row);
                 ContainerAmount++;
+                return row;
             }
             else
             {
@@ -101,10 +99,9 @@ namespace ContainerVervoer.Core
 
                 Row newRow = new Row(StartRow);
                 newRow.AddContainer(container);
-                Rows.Add(newRow);
+                return newRow;
             }
         }
-
 
         public void DisplayShipInfo(List<Row> rows)
         {
@@ -114,7 +111,7 @@ namespace ContainerVervoer.Core
             {
                 for (int i = 0; i < row.Containers.Count; i++)
                 {
-                    Console.WriteLine($"Row: {row.RowNumber} | Type: {row.Containers[i].Type}");
+                    Console.WriteLine($"Row: {row.RowNumber} | Type: {row.Containers[i].Type} | Weigth: {row.Containers[i].Weight}");
                 }
             }
         }

@@ -18,8 +18,6 @@ namespace ContainerVervoer.Core
             StackedRows = new List<Row>();
         }
 
-       
-
         public List<Row> AddContainer(List<Row> rows)
         {
             StackedRows = new List<Row>();
