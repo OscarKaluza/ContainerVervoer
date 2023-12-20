@@ -84,18 +84,23 @@ namespace ContainerVervoer.Core
         public Row AddContainers(Container container)
         {
             Row row = new Row(StartRow);
-            row.MaxContainers = 10;
+            row.MaxContainers = 2;
 
             if (ContainerAmount < row.MaxContainers)
             {
                 row.AddContainer(container);
                 ContainerAmount++;
                 return row;
-            }
+            } 
             else
             {
                 StartRow++;
                 ContainerAmount = 1;
+
+                if (StartRow >= LastRow)
+                {
+                    throw new Exception("Cannot add more rows to the ship");
+                }
 
                 Row newRow = new Row(StartRow);
                 newRow.AddContainer(container);
