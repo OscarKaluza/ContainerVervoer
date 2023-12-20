@@ -23,6 +23,7 @@ namespace ContainerVervoer.Core
             {
                 throw new Exception($"Weight cannot exceed {MaxWeight}");
             }
+
         }
         
         public override string ToString()

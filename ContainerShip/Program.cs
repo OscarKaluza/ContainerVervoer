@@ -13,9 +13,8 @@ namespace ContainerVervoer
     {
         static void Main(string[] args)
         {
-            Ship ship = new Ship(10);
+            Ship ship = new Ship(300000, 10);
             ContainerCollection collection = new ContainerCollection();
-
 
             ship.DistributeRows(collection.GetContainers());
             Console.ReadLine();
