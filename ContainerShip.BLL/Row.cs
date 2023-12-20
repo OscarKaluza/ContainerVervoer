@@ -13,9 +13,10 @@ namespace ContainerVervoer.Core
         public List<Container> Containers { get; private set; }
         public int MaxContainers {get; set; }
 
-        public Row(int rownumber)
+        public Row(int rownumber, int maxcontainers)
         {
             this.RowNumber = rownumber;
+            this.MaxContainers = maxcontainers;
             this.Containers = new List<Container>();
         }
 
@@ -23,7 +24,5 @@ namespace ContainerVervoer.Core
         {
             Containers.Add(container);
         }
-
-       
     }
 }

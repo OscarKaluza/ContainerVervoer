@@ -8,10 +8,11 @@ namespace ContainerVervoer.Core
 {
     public class Container
     {
-        public int Weight { get; set; }
         public ContainerType Type { get; private set; }
-
+        public int Weight { get; private set; }
         public int MaxWeight { get; set; }
+
+
         public Container(int weight, ContainerType type)
         {
             MaxWeight = 30000;

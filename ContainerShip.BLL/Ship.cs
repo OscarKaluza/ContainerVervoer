@@ -15,7 +15,6 @@ namespace ContainerVervoer.Core
         private int ValueAbleContainerAmount { get; set; }
         private int ContainerAmount { get; set; }
 
-
         public Ship(int lastrow)
         {
             Length = lastrow;
@@ -44,42 +43,39 @@ namespace ContainerVervoer.Core
 
         public Row AddCooledContainers(Container container)
         {
-            Row row = new Row(1);
-            row.MaxContainers = 5;
+            Row CooledRow = new Row(1, 5);
 
-            if (CooledContainerAmount < row.MaxContainers)
+            if (CooledContainerAmount < CooledRow.MaxContainers)
             {
-                row.AddContainer(container);
+                CooledRow.AddContainer(container);
                 CooledContainerAmount++;
             }
             else
             {
                 throw new Exception("Cannot add more cooled containers to the ship:");
             }
-            return row;
+            return CooledRow;
         }
 
         public Row AddValueableContainers(Container container)
         {
-            Row row = new Row(Length);
-            row.MaxContainers = 10;
+            Row ValueableRow = new Row(Length, 10);
 
             if (ValueAbleContainerAmount < Length - 1)
             {
-                row.AddContainer(container);
+                ValueableRow.AddContainer(container);
                 ValueAbleContainerAmount++;
             }
             else
             {
                 throw new Exception("Cannot add more valuable containers to the ship:");
             }
-            return row;
+            return ValueableRow;
         }
 
         public Row AddContainers(Container container)
         {
-            Row row = new Row(StartRow);
-            row.MaxContainers = 2;
+            Row row = new Row(StartRow, 2);
 
             if (ContainerAmount < row.MaxContainers)
             {
@@ -98,7 +94,7 @@ namespace ContainerVervoer.Core
                     throw new Exception("Cannot add more rows to the ship");
                 }
 
-                Row newRow = new Row(StartRow);
+                Row newRow = new Row(StartRow, row.MaxContainers);
                 newRow.AddContainer(container);
                 return newRow;
             }
