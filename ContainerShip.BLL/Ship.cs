@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,55 +8,110 @@ namespace ContainerVervoer.Core
 {
     public class Ship
     {
-        public List<Row> Layout { get; set; }
-        public Ship()
+        private List<Row> Rows = new List<Row>();
+        private int Length { get; set; }
+        private int StartRow { get; set; }
+        private int CooledContainerAmount { get; set; }
+        private int ValueAbleContainerAmount { get; set; }
+        private int ContainerAmount { get; set; }
+
+        public Ship(int lastrow)
         {
-            Layout = new List<Row>();
+            Length = lastrow;
+            StartRow = 2;
         }
-
-
-        public void DistributeContainers(List<Container> containers)
+        public void DistributeRows(List<Container> containers)
         {
             foreach (var container in containers)
             {
-                if (container.Type != ContainerType.Cooled)
+                if (container.Type == ContainerType.Cooled)
                 {
-                    int startrow = 2;
-                    Row row = new Row(container, startrow, 5);
-
-                    if (row.AddRow(container))
-                    {
-                        Layout.Add(row);
-                    }
-                    else
-                    {
-                        startrow = 3;
-                        Layout.Add(new Row(container, startrow, 5));
-                    }
+                    Rows.Add(AddCooledContainers(container));
                 }
-                else if (container.Type == ContainerType.Cooled)
+                else if (container.Type == ContainerType.Valuable)
                 {
-                    Layout.Add(new Row(container, 1, 5));
+                    Rows.Add(AddValueableContainers(container));
+                }
+                else if (container.Type == ContainerType.Empty || container.Type == ContainerType.Full)
+                {
+                    Rows.Add(AddContainers(container));
                 }
             }
+
+            DisplayShipInfo(Rows);
         }
 
-        public void DisplayShipInfo()
+        public Row AddCooledContainers(Container container)
         {
-            var sortedRows = Layout.OrderBy(row => row.RowNumber);
+            Row CooledRow = new Row(1, 5);
 
-            foreach (var row in sortedRows)
+            if (CooledContainerAmount < CooledRow.MaxContainers)
             {
-                foreach (var stack in row.ShipRow)
+                CooledRow.AddContainer(container);
+                CooledContainerAmount++;
+            }
+            else
+            {
+                throw new Exception("Cannot add more cooled containers to the ship:");
+            }
+            return CooledRow;
+        }
+
+        public Row AddValueableContainers(Container container)
+        {
+            Row ValueableRow = new Row(Length, 10);
+
+            if (ValueAbleContainerAmount < Length - 1)
+            {
+                ValueableRow.AddContainer(container);
+                ValueAbleContainerAmount++;
+            }
+            else
+            {
+                throw new Exception("Cannot add more valuable containers to the ship:");
+            }
+            return ValueableRow;
+        }
+
+        public Row AddContainers(Container container)
+        {
+            Row row = new Row(StartRow, 2);
+
+            if (ContainerAmount < row.MaxContainers)
+            {
+                row.AddContainer(container);
+                ContainerAmount++;
+                return row;
+            } 
+
+            else
+            {
+                StartRow++;
+                ContainerAmount = 1;
+
+                if (StartRow >= Length)
                 {
-                    foreach (var container in stack.StackedContainers)
-                    {
-                        Console.WriteLine($"Row {row.RowNumber} | Container Type: {container.Type} amount on top {stack.StackedContainers.Count -1}");
-                    }
+                    throw new Exception("Cannot add more rows to the ship");
                 }
+
+                Row newRow = new Row(StartRow, row.MaxContainers);
+                newRow.AddContainer(container);
+                return newRow;
             }
         }
 
+        public void DisplayShipInfo(List<Row> rows)
+        {
+            var sortedRows = rows.OrderBy(row => row.RowNumber).ToList();
+
+            foreach (Row row in sortedRows)
+            {
+                for (int i = 0; i < row.Containers.Count; i++)
+                {
+                    Console.WriteLine($"Row: {row.RowNumber} | Type: {row.Containers[i].Type} | Weigth: {row.Containers[i].Weight}");
+                }
+            }
+        }
 
     }
 }

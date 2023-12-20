@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,46 +9,20 @@ namespace ContainerVervoer.Core
 {
     public class Row
     {
-        public List<ContainerStack> ShipRow { get; set; }
-        public int RowNumber { get; set; }
-        public int MaxLength { get; set; }
+        public int RowNumber { get; private set; }
+        public List<Container> Containers { get; private set; }
+        public int MaxContainers {get; set; }
 
-        public Row(Container container, int rowNumber, int length)
+        public Row(int rownumber, int maxcontainers)
         {
-            RowNumber = rowNumber;
-            MaxLength = length;
-            ShipRow = new List<ContainerStack> { new ContainerStack { StackedContainers = new List<Container> { container } } };
+            this.RowNumber = rownumber;
+            this.MaxContainers = maxcontainers;
+            this.Containers = new List<Container>();
         }
 
-        public bool CanAddRow()
+        public void AddContainer(Container container)
         {
-            if (ShipRow.Count > MaxLength)
-            {
-                return false;
-            }
-
-            if (ShipRow.Count < MaxLength)
-            {
-                return true;
-            }
-
-            else return false;  
+            Containers.Add(container);
         }
-
-        public bool AddRow(Container container)
-        {
-            if (CanAddRow())
-            {
-                ShipRow.Add(new ContainerStack { StackedContainers = new List<Container> { container } });
-                return true;
-            }
-          
-            else
-            {
-                throw new Exception("Cannot add new Row");
-            }
-        }
-
     }
-
 }

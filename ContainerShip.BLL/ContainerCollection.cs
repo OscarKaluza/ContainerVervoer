@@ -1,12 +1,8 @@
-﻿using ContainerVervoer.Core;
-using System;
+﻿using Containertest;
+using ContainerVervoer.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ContainerVervoer.Core
+namespace Containertest
 {
     public class ContainerCollection
     {
@@ -15,33 +11,26 @@ namespace ContainerVervoer.Core
             List<Container> containers = new List<Container>
             {
                 new Container(4000, ContainerType.Empty),
-                new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Cooled),
                 new Container(5000, ContainerType.Cooled),
                 new Container(5000, ContainerType.Cooled),
                 new Container(5000, ContainerType.Cooled),
                 new Container(5000, ContainerType.Cooled),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Cooled),
-                new Container(5000, ContainerType.Cooled),
-                new Container(5000, ContainerType.Cooled),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
+                new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Empty),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
+                new Container(4000, ContainerType.Full),
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
@@ -51,31 +40,10 @@ namespace ContainerVervoer.Core
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Full),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Full),
-                new Container(5000, ContainerType.Full),
-                new Container(5000, ContainerType.Full),
-                new Container(5000, ContainerType.Full),
-                new Container(5000, ContainerType.Full),
-
-
             };
 
             return containers;
         }
+
     }
 }

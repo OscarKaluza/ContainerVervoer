@@ -1,6 +1,11 @@
 ﻿using ContainerVervoer.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ContainerVervoer;
+using Containertest;
 
 namespace ContainerVervoer
 {
@@ -8,22 +13,11 @@ namespace ContainerVervoer
     {
         static void Main(string[] args)
         {
-            Ship ship = new Ship();
-            ContainerCollection containers = new ContainerCollection();
+            Ship ship = new Ship(10);
+            ContainerCollection collection = new ContainerCollection();
 
-            ship.DistributeContainers(containers.GetContainers());
-            ship.DisplayShipInfo();
 
-            //foreach (var row in ship.Rows)
-            //{
-            //    foreach (var containerStack in row.ShipRow)
-            //    {
-            //        foreach (var container in containerStack.Stack)
-            //        {
-            //            Console.WriteLine($"Row: {row.RowNumber}  Weight: {container.Weight} Kg, ContainerType: {container.Type}");
-            //        }
-            //    }
-            //}
+            ship.DistributeRows(collection.GetContainers());
             Console.ReadLine();
         }
     }
