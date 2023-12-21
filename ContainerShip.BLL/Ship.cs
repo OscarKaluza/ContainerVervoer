@@ -1,88 +1,100 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContainerVervoer.Core
 {
     public class Ship
     {
-        private List<Row> Rows = new List<Row>();
+        public List<ContainerStack> ContainerStacks = new List<ContainerStack>();
+        private int MaxWeight { get; set; }
         private int Length { get; set; }
         private int StartRow { get; set; }
         private int CooledContainerAmount { get; set; }
         private int ValueAbleContainerAmount { get; set; }
         private int ContainerAmount { get; set; }
 
-        public Ship(int lastrow)
+        public Ship(int maxWeight, int lastrow)
         {
             Length = lastrow;
             StartRow = 2;
+            MaxWeight = maxWeight;
         }
+
         public void DistributeRows(List<Container> containers)
         {
             foreach (var container in containers)
             {
                 if (container.Type == ContainerType.Cooled)
                 {
-                    Rows.Add(AddCooledContainers(container));
+                    AddContainerToStack(AddCooledContainers(container));
                 }
                 else if (container.Type == ContainerType.Valuable)
                 {
-                    Rows.Add(AddValueableContainers(container));
+                    AddContainerToStack(AddValueableContainers(container));
                 }
                 else if (container.Type == ContainerType.Empty || container.Type == ContainerType.Full)
                 {
-                    Rows.Add(AddContainers(container));
+                    AddContainerToStack(AddContainers(container));
                 }
             }
 
-            DisplayShipInfo(Rows);
         }
 
-        public Row AddCooledContainers(Container container)
+        private void AddContainerToStack(Row row)
         {
-            Row CooledRow = new Row(1, 5);
+            var existingStack = ContainerStacks.FirstOrDefault(stack => stack.RowNumber == row.RowNumber);
 
-            if (CooledContainerAmount < CooledRow.MaxContainers)
+            if (existingStack != null)
             {
-                CooledRow.AddContainer(container);
-                CooledContainerAmount++;
+                existingStack.AddRow(row);
             }
             else
+            {
+                ContainerStack stack = new ContainerStack(row.RowNumber, 5);
+                stack.AddRow(row);
+                ContainerStacks.Add(stack);
+            }
+        }
+
+        private Row AddCooledContainers(Container container)
+        {
+            Row CooledRow = new Row(1, 5);
+            CooledContainerAmount++;
+
+            if (CooledContainerAmount > CooledRow.MaxContainers)
             {
                 throw new Exception("Cannot add more cooled containers to the ship:");
             }
+
+            CooledRow.AddContainer(container);
             return CooledRow;
         }
 
-        public Row AddValueableContainers(Container container)
+        private Row AddValueableContainers(Container container)
         {
             Row ValueableRow = new Row(Length, 10);
+            ValueAbleContainerAmount++;
 
-            if (ValueAbleContainerAmount < Length - 1)
-            {
-                ValueableRow.AddContainer(container);
-                ValueAbleContainerAmount++;
-            }
-            else
+            if (ValueAbleContainerAmount > Length)
             {
                 throw new Exception("Cannot add more valuable containers to the ship:");
             }
+
+            ValueableRow.AddContainer(container);
             return ValueableRow;
         }
 
-        public Row AddContainers(Container container)
+        private Row AddContainers(Container container)
         {
-            Row row = new Row(StartRow, 2);
+            Row row = new Row(StartRow, 3);
 
             if (ContainerAmount < row.MaxContainers)
             {
                 row.AddContainer(container);
                 ContainerAmount++;
                 return row;
-            } 
+            }
 
             else
             {
@@ -100,18 +112,24 @@ namespace ContainerVervoer.Core
             }
         }
 
-        public void DisplayShipInfo(List<Row> rows)
+        public void DisplayShipInfo(List<ContainerStack> stacks)
         {
-            var sortedRows = rows.OrderBy(row => row.RowNumber).ToList();
+            var sortedStacks = stacks.OrderBy(stack => stack.RowNumber).ToList();
 
-            foreach (Row row in sortedRows)
+            foreach (ContainerStack stack in sortedStacks)
             {
-                for (int i = 0; i < row.Containers.Count; i++)
+                Console.WriteLine($"Container Stack: {stack.RowNumber} | Height: {stack.StackNumber}");
+
+                foreach (Row row in stack.Rows)
                 {
-                    Console.WriteLine($"Row: {row.RowNumber} | Type: {row.Containers[i].Type} | Weigth: {row.Containers[i].Weight}");
+                    for (int i = 0; i < row.Containers.Count; i++)
+                    {
+                        Console.WriteLine($"  Row: {row.RowNumber} | Type: {row.Containers[i].Type} | Weight: {row.Containers[i].Weight}");
+                    }
                 }
             }
         }
+
 
     }
 }
