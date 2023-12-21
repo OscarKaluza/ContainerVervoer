@@ -6,7 +6,7 @@ namespace ContainerVervoer.Core
 {
     public class Ship
     {
-        private List<ContainerStack> ContainerStacks = new List<ContainerStack>();
+        public List<ContainerStack> ContainerStacks = new List<ContainerStack>();
         private int MaxWeight { get; set; }
         private int Length { get; set; }
         private int StartRow { get; set; }
@@ -39,7 +39,6 @@ namespace ContainerVervoer.Core
                 }
             }
 
-            DisplayShipInfo(ContainerStacks);
         }
 
         private void AddContainerToStack(Row row)
@@ -52,48 +51,43 @@ namespace ContainerVervoer.Core
             }
             else
             {
-                ContainerStack stack = new ContainerStack(row.RowNumber, 10);
+                ContainerStack stack = new ContainerStack(row.RowNumber, 5);
                 stack.AddRow(row);
                 ContainerStacks.Add(stack);
             }
         }
 
-
-        public Row AddCooledContainers(Container container)
+        private Row AddCooledContainers(Container container)
         {
             Row CooledRow = new Row(1, 5);
+            CooledContainerAmount++;
 
-            if (CooledContainerAmount < CooledRow.MaxContainers)
-            {
-                CooledRow.AddContainer(container);
-                CooledContainerAmount++;
-            }
-            else
+            if (CooledContainerAmount > CooledRow.MaxContainers)
             {
                 throw new Exception("Cannot add more cooled containers to the ship:");
             }
+
+            CooledRow.AddContainer(container);
             return CooledRow;
         }
 
-        public Row AddValueableContainers(Container container)
+        private Row AddValueableContainers(Container container)
         {
             Row ValueableRow = new Row(Length, 10);
+            ValueAbleContainerAmount++;
 
-            if (ValueAbleContainerAmount < Length - 1)
-            {
-                ValueableRow.AddContainer(container);
-                ValueAbleContainerAmount++;
-            }
-            else
+            if (ValueAbleContainerAmount > Length)
             {
                 throw new Exception("Cannot add more valuable containers to the ship:");
             }
+
+            ValueableRow.AddContainer(container);
             return ValueableRow;
         }
 
-        public Row AddContainers(Container container)
+        private Row AddContainers(Container container)
         {
-            Row row = new Row(StartRow, 2);
+            Row row = new Row(StartRow, 3);
 
             if (ContainerAmount < row.MaxContainers)
             {

@@ -17,6 +17,7 @@ namespace ContainerVervoer
             ContainerCollection collection = new ContainerCollection();
 
             ship.DistributeRows(collection.GetContainers());
+            ship.DisplayShipInfo(ship.ContainerStacks);
             Console.ReadLine();
         }
     }

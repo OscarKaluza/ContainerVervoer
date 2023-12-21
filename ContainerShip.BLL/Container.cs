@@ -16,15 +16,21 @@ namespace ContainerVervoer.Core
         public Container(int weight, ContainerType type)
         {
             MaxWeight = 30000;
-            Weight = weight;
-            Type = type;
 
             if (weight > MaxWeight)
             {
                 throw new Exception($"Weight cannot exceed {MaxWeight}");
             }
 
+            if (type == ContainerType.Empty)
+            {
+                Weight = 4000;
+            }
+
+            Weight = weight;
+            Type = type;
         }
+
         
         public override string ToString()
         {
