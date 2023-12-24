@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace ContainerVervoer.Core
         public void AddContainer(Container container)
         {
             Containers.Add(container);
+        }
+
+        public bool CanAddContainer()
+        {
+            if (Containers.Count >= MaxContainers)
+            {
+                return false;
+            }
+
+            else return true;
         }
     }
 }

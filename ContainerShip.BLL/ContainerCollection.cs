@@ -39,7 +39,7 @@ namespace Containertest
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
                 new Container(5000, ContainerType.Valuable),
-                new Container(5000, ContainerType.Valuable),
+
             };
 
             return containers;
