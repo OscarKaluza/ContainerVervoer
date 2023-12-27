@@ -35,7 +35,7 @@ namespace ContainerVervoer.Core
                 }
                 else if (container.Type == ContainerType.Empty || container.Type == ContainerType.Full)
                 {
-                    AddContainerToStack(AddContainers(container));
+                    AddContainerToStack(AddRegularContainers(container));
                 }
             }
 
@@ -62,7 +62,7 @@ namespace ContainerVervoer.Core
             Row CooledRow = new Row(1, 5);
             CooledContainerAmount++;
 
-            if (CooledContainerAmount > CooledRow.MaxContainers)
+            if (!CooledRow.CanAddContainer())
             {
                 throw new Exception("Cannot add more cooled containers to the ship:");
             }
@@ -76,7 +76,7 @@ namespace ContainerVervoer.Core
             Row ValueableRow = new Row(Length, 10);
             ValueAbleContainerAmount++;
 
-            if (ValueAbleContainerAmount > Length)
+            if (!ValueableRow.CanAddContainer())
             {
                 throw new Exception("Cannot add more valuable containers to the ship:");
             }
@@ -85,7 +85,7 @@ namespace ContainerVervoer.Core
             return ValueableRow;
         }
 
-        private Row AddContainers(Container container)
+        private Row AddRegularContainers(Container container)
         {
             Row row = new Row(StartRow, 3);
 
@@ -111,6 +111,8 @@ namespace ContainerVervoer.Core
                 return newRow;
             }
         }
+
+
 
         public void DisplayShipInfo(List<ContainerStack> stacks)
         {
