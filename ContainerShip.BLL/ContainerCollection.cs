@@ -10,8 +10,8 @@ namespace Containertest
         {
             List<Container> containers = new List<Container>
             {
-                new Container(4000, ContainerType.Empty),
                 new Container(5000, ContainerType.Cooled),
+                new Container(4000, ContainerType.Empty),
                 new Container(5000, ContainerType.Cooled),
                 new Container(5000, ContainerType.Cooled),
                 new Container(5000, ContainerType.Cooled),
@@ -22,7 +22,6 @@ namespace Containertest
                 new Container(4000, ContainerType.Empty),
                 new Container(4000, ContainerType.Empty),
                 new Container(4000, ContainerType.Empty),
-                new Container(4000, ContainerType.Full),
                 new Container(4000, ContainerType.Full),
                 new Container(4000, ContainerType.Full),
                 new Container(4000, ContainerType.Full),

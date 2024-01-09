@@ -7,12 +7,13 @@ namespace ContainerVervoer.Core
     public class Ship
     {
         public List<ContainerStack> ContainerStacks = new List<ContainerStack>();
-        private int MaxWeight { get; set; }
+        public int MaxWeight { get; set; }
         private int Length { get; set; }
         private int StartRow { get; set; }
         private int CooledContainerAmount { get; set; }
         private int ValueAbleContainerAmount { get; set; }
         private int ContainerAmount { get; set; }
+        private int LoadedWeigth { get; set;  }
 
         public Ship(int maxWeight, int lastrow)
         {
@@ -38,7 +39,6 @@ namespace ContainerVervoer.Core
                     AddContainerToStack(AddRegularContainers(container));
                 }
             }
-
         }
 
         private void AddContainerToStack(Row row)
@@ -110,6 +110,29 @@ namespace ContainerVervoer.Core
                 newRow.AddContainer(container);
                 return newRow;
             }
+        }
+
+        public int CalculateLoadedWeight(List<Container> containersToAdd)
+        {
+            int loadedWeight = 0;
+
+            foreach (var containerStack in ContainerStacks)
+            {
+                foreach (var row in containerStack.Rows)
+                {
+                    foreach (var container in row.Containers)
+                    {
+                        loadedWeight += container.Weight;
+                    }
+                }
+            }
+
+            foreach (var container in containersToAdd)
+            {
+                loadedWeight += container.Weight;
+            }
+
+            return loadedWeight;
         }
 
 

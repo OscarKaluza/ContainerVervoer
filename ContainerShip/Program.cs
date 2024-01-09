@@ -16,9 +16,17 @@ namespace ContainerVervoer
             Ship ship = new Ship(300000, 10);
             ContainerCollection collection = new ContainerCollection();
 
-            ship.DistributeRows(collection.GetContainers());
+            List<Container> containersToAdd = collection.GetContainers();
+
+            if (ship.CalculateLoadedWeight(containersToAdd) > ship.MaxWeight)
+            {
+                throw new Exception("Cannot add more containers");
+            }
+
+            ship.DistributeRows(containersToAdd);
             ship.DisplayShipInfo(ship.ContainerStacks);
             Console.ReadLine();
+
         }
     }
 }
